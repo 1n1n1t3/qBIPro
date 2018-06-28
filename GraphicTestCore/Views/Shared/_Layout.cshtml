@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta name="description" content="Quick Business Intelligence Professional is an innovative web application that aims to deliver big data analysis
+    to your computer.">
+    <meta name="keywords" content="qBIPro,BI,Analysis,Data">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script nws-csp-add-nonce="true" async src="https://www.googletagmanager.com/gtag/js?id=UA-113702706-2"></script>
+    <script nws-csp-add-nonce="true">
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-113702706-2');
+    </script>
+    <title>qBIPro.com - @ViewData["Title"]</title>
+    <link async rel="stylesheet" href="~/lib/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <nav class="navbar navbar-expand-md bg-info navbar-dark fixed-top">
+        <div class="container">
+            <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand mb-0 h1 text-white">           
+                qBIPro
+            </a>
+            <div class="navbar-header">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <partial name="_LoggedMenuPartial" />
+                <partial name="_LoginPartial" />
+            </div>
+        </div>
+    </nav>
+
+    <partial name="_CookieConsentPartial" />
+
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <div>
+                <ul class="list-inline">
+                    <li class="list-inline-item">2018 - qBIPro</li>
+                    <li class="list-inline-item"><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
+                    <li class="list-inline-item"><a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy Policy</a></li>
+                    <li class="list-inline-item"><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
+                </ul>
+            </div>
+        </footer>
+    </div>
+    <script src="~/js/jquery331.js"></script>
+    <script src="~/js/popper.js"></script>
+    <script src="~/js/bootstrap411.js"></script>
+    <!-- <script defer src="~/js/fontsawesome.js"></script>-->
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

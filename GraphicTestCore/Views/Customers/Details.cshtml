@@ -1,0 +1,74 @@
+﻿@using qBIPro.Models;
+@model qBIPro.Models.CustomerDetails
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Customer</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Customer.CustomerName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Customer.CustomerName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Customer.Type)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Customer.Type)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Customer.IdentificationNumber)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Customer.IdentificationNumber)
+        </dd>
+        <h4>Address</h4>
+        <dt>
+            @Html.DisplayNameFor(model => model.Addresses.Street)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Addresses.Street)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Addresses.PostalCode)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Addresses.PostalCode)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Addresses.City)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Addresses.City)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Addresses.Country)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Addresses.Country)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Addresses.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Addresses.Name)
+        </dd>
+    </dl>
+</div>
+<div>
+    <div class="btn-group">
+        <a asp-action="Edit" asp-route-id="@Model.Customer.CustomerId" class="btn btn-warning">Edit</a>
+        <a asp-action="Delete" asp-route-id="@Model.Customer.CustomerId" class="btn btn-danger">Delete</a>
+    </div>
+    <div>
+        <br />
+        <a asp-action="Index">Back to List</a>
+    </div>
+</div>

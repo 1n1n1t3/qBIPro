@@ -1,0 +1,44 @@
+﻿
+@{
+    ViewData["Title"] = "Maps";
+}
+<link href="~/css/jsmaps.css" rel="stylesheet" />
+@section scripts {
+    <script src="~/js/jsmaps-libs.js"></script>
+    <script src="~/js/jsmaps-panzoom.js"></script>
+    <script src="~/js/jsmaps.min.js"></script>
+    <script src="~/maps/bulgaria.js"></script>
+
+    <script type="text/javascript" nws-csp-add-nonce="true">
+
+        $(function () {
+
+            $('#bulgaria-map').JSMaps({
+                map: 'bulgaria',
+                onStateClick: function (data) {
+
+
+                    $(".alert").remove();
+
+                    $('#title').before('<div class="alert alert-info alert-primary d-none d-md-block" ><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>Current selected state code: ' + data.abbreviation +'</div>');
+
+
+                   
+                }
+            });
+           
+        });
+       
+    </script>
+
+}
+
+    <div class="alert alert-warning alert-dismissibled-none d-none d-md-block"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>Please select a state</div>
+
+<h2 id="title">Maps</h2>
+
+<div class="container" id="map">
+    <div class="jsmaps-wrapper" id="bulgaria-map"></div>
+</div>
+
+
