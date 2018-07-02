@@ -107,7 +107,7 @@ namespace qBIPro.Areas.Identity.Pages.Account
                     if (await _context.SaveChangesAsync() != 0)
                     {
 
-                        user.AreaId = organization.Id;
+                        user.AreaId = organization.AreaId;
                         await _userManager.UpdateAsync(user);
                     }
 
