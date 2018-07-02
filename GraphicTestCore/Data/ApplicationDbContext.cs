@@ -37,6 +37,7 @@ namespace qBIPro.Data
 
 
         }
+
     }
 
     public class Customer

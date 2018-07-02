@@ -20,6 +20,7 @@
     <PackageReference Include="d3" Version="5.5.0" />
     <PackageReference Include="DotNetCore.NPOI" Version="1.0.2" />
     <PackageReference Include="EPPlus" Version="4.5.2.1" />
+    <PackageReference Include="HtmlAgilityPack" Version="1.8.4" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.ResponseCompression" Version="2.1.1" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.1" PrivateAssets="All" />
