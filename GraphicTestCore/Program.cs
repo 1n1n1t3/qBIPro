@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
+using qBIPro.Data;
 
 namespace qBIPro
 {
@@ -28,7 +29,9 @@ namespace qBIPro
             //    .Build();
 
             //host.Run();
-           CreateWebHostBuilder(args).Build().Run();
+
+
+                CreateWebHostBuilder(args).Build().Run();
         }
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>

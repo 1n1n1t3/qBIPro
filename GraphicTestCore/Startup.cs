@@ -54,7 +54,7 @@ namespace qBIPro
 
 
             });
-            services.AddSingleton<IAuthorizationHandler, CustomerAuthorizationHandler>();
+            services.AddTransient<IAuthorizationHandler, CustomerAuthorizationHandler>();
 
             services.AddAuthorization(options =>
             {
@@ -189,7 +189,7 @@ namespace qBIPro
 
             if (_user == null)
             {
-                
+                poweruser.AreaId = 1;
                 var createPowerUser = await UserManager.CreateAsync(poweruser, userPWD);
                 if (createPowerUser.Succeeded)
                 {
@@ -197,6 +197,9 @@ namespace qBIPro
                     await UserManager.AddToRoleAsync(poweruser, "Admin");
 
                 }
+
+             
+
             }
         }
 

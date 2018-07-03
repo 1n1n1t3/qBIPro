@@ -14,6 +14,7 @@
         <form asp-action="Save">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Customer.CustomerId" />
+            <input type="hidden" asp-for="Customer.AreaId" />
             <div class="form-group">
                 <label asp-for="Customer.CustomerName" class="control-label"></label>
                 <input asp-for="Customer.CustomerName" class="form-control" />
@@ -32,6 +33,7 @@
             </div>
             <h4>Address</h4>
             <input type="hidden" asp-for="Addresses.AddressId" />
+            <input type="hidden" asp-for="Addresses.CustomerId" />
             <div class="form-group">
                 <label asp-for="Addresses.Street" class="control-label"></label>
                 <input asp-for="Addresses.Street" class="form-control" />

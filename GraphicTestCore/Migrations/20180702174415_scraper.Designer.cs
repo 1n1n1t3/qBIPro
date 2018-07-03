@@ -10,14 +10,14 @@ using qBIPro.Data;
 namespace qBI.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180625072327_area")]
-    partial class area
+    [Migration("20180702174415_scraper")]
+    partial class scraper
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.0-rtm-30799")
+                .HasAnnotation("ProductVersion", "2.1.1-rtm-30846")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -186,13 +186,30 @@ namespace qBI.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
+            modelBuilder.Entity("qBI.Models.WebScraper", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Address");
+
+                    b.Property<DateTime>("LastRunOn");
+
+                    b.Property<int>("OwnerId");
+
+                    b.Property<string>("Result");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("WebScraper");
+                });
+
             modelBuilder.Entity("qBIPro.Data.Address", b =>
                 {
                     b.Property<int>("AddressId")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("AreaId");
 
                     b.Property<string>("City");
 
@@ -215,15 +232,19 @@ namespace qBI.Migrations
 
             modelBuilder.Entity("qBIPro.Data.Area", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("AreaId")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Name");
 
-                    b.HasKey("Id");
+                    b.HasKey("AreaId");
 
                     b.ToTable("Area");
+
+                    b.HasData(
+                        new { AreaId = 1, Name = "Admin" }
+                    );
                 });
 
             modelBuilder.Entity("qBIPro.Data.Customer", b =>
@@ -241,6 +262,8 @@ namespace qBI.Migrations
                     b.Property<int>("Type");
 
                     b.HasKey("CustomerId");
+
+                    b.HasIndex("AreaId");
 
                     b.ToTable("Customers");
                 });
@@ -293,8 +316,16 @@ namespace qBI.Migrations
             modelBuilder.Entity("qBIPro.Data.Address", b =>
                 {
                     b.HasOne("qBIPro.Data.Customer", "Customer")
-                        .WithMany("Addresses")
+                        .WithMany()
                         .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("qBIPro.Data.Customer", b =>
+                {
+                    b.HasOne("qBIPro.Data.Area", "Area")
+                        .WithMany("Customers")
+                        .HasForeignKey("AreaId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

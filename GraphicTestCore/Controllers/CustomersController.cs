@@ -54,7 +54,6 @@ namespace qBI.Controllers
                     customerDetails.Customer.AreaId = user.AreaId;
                     await _userContext.AddAsync(customerDetails.Customer);
                     customerDetails.Addresses.CustomerId = customerDetails.Customer.CustomerId;
-                    customerDetails.Addresses.AreaId = user.AreaId;
                     await _userContext.AddAsync(customerDetails.Addresses);
                     await _userContext.SaveChangesAsync();
             }
@@ -76,6 +75,7 @@ namespace qBI.Controllers
         {
             CustomerDetails customerDetails = await getCustomerDetails(Id);
 
+
             return View(customerDetails);
         }
         private async Task<CustomerDetails> getCustomerDetails(int Id)
@@ -96,8 +96,12 @@ namespace qBI.Controllers
 
             if (ModelState.IsValid)
             {
-                _userContext.Update(customerDetails.Customer);
-                _userContext.Update(customerDetails.Addresses);
+                Address address = customerDetails.Addresses;
+                Customer customer = customerDetails.Customer;
+
+                _userContext.Update(address);
+                _userContext.Update(customer);
+
                 await _userContext.SaveChangesAsync();
             }
 
