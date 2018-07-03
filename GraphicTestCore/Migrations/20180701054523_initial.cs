@@ -4,10 +4,23 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace qBI.Migrations
 {
-    public partial class @new : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Area",
+                columns: table => new
+                {
+                    AreaId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Area", x => x.AreaId);
+                });
+
             migrationBuilder.CreateTable(
                 name: "AspNetRoles",
                 columns: table => new
@@ -41,7 +54,8 @@ namespace qBI.Migrations
                     LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
                     LockoutEnabled = table.Column<bool>(nullable: false),
                     AccessFailedCount = table.Column<int>(nullable: false),
-                    LastLogin = table.Column<DateTime>(nullable: false)
+                    LastLogin = table.Column<DateTime>(nullable: false),
+                    AreaId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -55,12 +69,19 @@ namespace qBI.Migrations
                     CustomerId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     CustomerName = table.Column<string>(nullable: true),
+                    Type = table.Column<int>(nullable: false),
                     IdentificationNumber = table.Column<string>(nullable: true),
                     AreaId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Customers", x => x.CustomerId);
+                    table.ForeignKey(
+                        name: "FK_Customers_Area_AreaId",
+                        column: x => x.AreaId,
+                        principalTable: "Area",
+                        principalColumn: "AreaId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -180,8 +201,7 @@ namespace qBI.Migrations
                     City = table.Column<string>(nullable: true),
                     Country = table.Column<string>(nullable: true),
                     Name = table.Column<string>(nullable: true),
-                    CustomerId = table.Column<int>(nullable: false),
-                    AreaId = table.Column<int>(nullable: false)
+                    CustomerId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -193,6 +213,11 @@ namespace qBI.Migrations
                         principalColumn: "CustomerId",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.InsertData(
+                table: "Area",
+                columns: new[] { "AreaId", "Name" },
+                values: new object[] { 1, "Admin" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Addresses_CustomerId",
@@ -237,6 +262,11 @@ namespace qBI.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Customers_AreaId",
+                table: "Customers",
+                column: "AreaId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -267,6 +297,9 @@ namespace qBI.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Area");
         }
     }
 }

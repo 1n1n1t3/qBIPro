@@ -1,0 +1,28 @@
+﻿@{
+    ViewData["Title"] = "Web scrapper";
+}
+
+<h1 class="text-center">Web scraping</h1>
+<form asp-action="Scrape" method="post">
+    <label for="basic-url">URL</label>
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon3">URL:</span>
+        </div>
+        <input type="text" class="form-control" id="Url" aria-describedby="basic-addon3" name="Url">
+        <input class="btn btn-info" type="submit">
+    </div>
+</form>
+<div class="container">
+    <ul class="list-group">
+        @if (ViewData["Result"] != null)
+        {
+            foreach (var std in ViewData["Result"] as IList<String>)
+            {
+            <li class="list-group-item">
+                @std.ToString()
+            </li>
+            }
+        }
+    </ul>
+</div>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -18,12 +19,27 @@ namespace qBIPro.Data
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Address> Addresses { get; set; }
         public DbSet<Area> Area { get; set; }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            base.OnConfiguring(optionsBuilder);
+        }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+
+            //builder.Entity<Customer>().HasOne(p => p.Area).WithMany(b => b.Customers)
+            //    .HasForeignKey(p => p.AreaId)
+            //    .OnDelete(DeleteBehavior.Cascade);
+
+            builder.Entity<Area>().HasData(new Area { AreaId = 1, Name = "Admin" });
+
+
+        }
+
     }
-    public class Area
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
-    }
+
     public class Customer
     {
         public int CustomerId { get; set; }
@@ -41,10 +57,18 @@ namespace qBIPro.Data
         public CustomerType Type { get; set; }
         [Display(Name = "Identification number")]
         public string IdentificationNumber { get; set; }
-        public List<Address> Addresses { get; set; }
         public int AreaId { get; set; }
-    }
 
+        public virtual Area Area { get; set; }
+
+    }
+    public class Area
+    {
+        public int AreaId { get; set; }
+        public string Name { get; set; }
+        public virtual ICollection<Customer> Customers { get; set; }
+
+    }
     public class Address
     {
         public int AddressId { get; set; }
@@ -56,6 +80,5 @@ namespace qBIPro.Data
         public string Name { get; set; }
         public int CustomerId { get; set; }
         public Customer Customer { get; set; }
-        public int AreaId { get; set; }
     }
 }
